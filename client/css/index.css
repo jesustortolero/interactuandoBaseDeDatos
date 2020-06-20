@@ -1,4 +1,4 @@
-@import 'app.css';
+@import 'app.css'; 
 
 body{
   background-image: url('../img/fondo.jpg');
@@ -23,3 +23,6 @@ div.btn-container{
   display: flex;
   justify-content: center;
 }
+
+
+

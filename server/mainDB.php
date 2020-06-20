@@ -27,19 +27,24 @@ class Agenda
         }
     }
 
+
     function exec_SQL($parametro)
     {
 
-        if (!$this->connection->query($parametro))return "Hubo un error y los datos no han sido cargados. Comando SQL: ".$parametro."<br>"
-        .mysqli_error($this->connection)."<br><br>";
+        $query = $this->connection->query($parametro);
 
-        return $this->connection->query($parametro);
+        if (!$query) {
 
+            return "Hubo un error y los datos no han sido cargados. Comando SQL: " .
+                $parametro . "<br>" . mysqli_error($this->connection) . "<br><br>";
+        } else {
+
+            return $query;
+        }
     }
-
     function end()
     {
-        $this->connect->close();
+        $this->connection->close();
     }
 
     function insertarValor($tableName = "", $columnsValues)
@@ -73,23 +78,23 @@ class Agenda
     }
 
 
-    function eliminarValor($tableName = "", $columnsValues)
+    function eliminarValor($tableName = "", $conditions)
     {
 
         $sql = "DELETE FROM " . $tableName . " WHERE ";
         $i = 1;
-        $len = count($columnsValues);
+        $len = count($conditions);
 
-        foreach ($columnsValues as $key => $val) {
+        foreach ($conditions as $key => $val) {
 
-            $sql += $key . "=" . $val;
+            $sql .= $key . "=" . $val;
 
             if ($i != $len) {
 
-                $sql += ", ";
+                $sql .= " AND ";
             } else {
 
-                $sql += ";";
+                $sql .= ";";
             }
             $i++;
         }
@@ -108,28 +113,28 @@ class Agenda
 
         foreach ($columnsValues as $key => $val) {
 
-            $sql += $key . "=" . $val;
+            $sql .= $key . "=" . $val;
 
             if ($i != $lenVal_Col) {
 
-                $sql += ", ";
+                $sql .= ", ";
             } else {
 
-                $sql += " WHERE ";
+                $sql .= " WHERE ";
             }
             $i++;
         }
 
         foreach ($conditions as $key => $val) {
 
-            $sql += $key . "=" . $val;
+            $sql .= $key . "=" . $val;
 
             if ($x != $lenCondition) {
 
-                $sql += ", ";
+                $sql .= " AND ";
             } else {
 
-                $sql += ";";
+                $sql .= ";";
             }
             $x++;
         }
@@ -155,9 +160,9 @@ class Agenda
 
                 if ($condition == "") {
 
-                    $sql .= "FROM " . $tableName . ";";
+                    $sql .= " FROM " . $tableName . ";";
                 } else {
-                    $sql .= "FROM " . $tableName . " WHERE " . $condition . ";";
+                    $sql .= " FROM " . $tableName . " WHERE " . $condition . ";";
                 }
             }
             $i++;

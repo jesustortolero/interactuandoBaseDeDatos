@@ -7,7 +7,7 @@ $agenda = new Agenda("localhost", "U_general", "1234");
 $agenda->connect("Agenda_db");
 
 $Verificar = $agenda->consultarValor("`usuario`", ["`nombre_usuario`","`contrasena`","`ID`"],
-"`nombre_usuario` = '".$_POST["username"] ."'");
+                                        "`nombre_usuario` = '".$_POST["username"] ."'");
 
 
 if($Verificar->num_rows > 0){
@@ -31,7 +31,3 @@ if($Verificar->num_rows > 0){
 }
 
 echo json_encode($RESPUESTA);
-
-
-
- ?>

@@ -6,8 +6,6 @@ $agenda = new Agenda("localhost", "U_general", "1234");
 
 $conexion = $agenda->connect("Agenda_db");
 
-
-
 $data1["`ID`"] = "'1'";
 $data1["`nombre_usuario`"] = "'CH_NewYork@gmail.com'";
 $data1["`nombre_completo`"] = "'Carolina Herrera'";
@@ -30,3 +28,5 @@ $data3["`fecha_nacimiento`"] = "'" . date("Y-m-d", mktime(0, 0, 0, 3, 25, 1977))
 $agenda->insertarValor("`usuario`", $data1);
 $agenda->insertarValor("`usuario`", $data2);
 $agenda->insertarValor("`usuario`", $data3);
+
+$agenda->end();
